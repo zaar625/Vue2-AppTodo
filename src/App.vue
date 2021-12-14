@@ -3,7 +3,7 @@
     <TodoHeader></TodoHeader>
     <TodoInput v-on:addTodoItem="addOneItem"
     ></TodoInput>
-    <TodoList v-bind:propsdata="todoItems"></TodoList>
+    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem"></TodoList>
     <TodoFooter></TodoFooter>
 
   </div>
@@ -28,6 +28,11 @@ export default {
         //저장하는 로직
         localStorage.setItem(todoItem, JSON.stringify(obj));
         this.todoItems.push(obj)
+    },
+    removeOneItem:function(todoItem, index){
+      localStorage.removeItem(todoItem.item);//todoItem은 콘솔로 찍으면 객체값으로 들어옴.
+      this.todoItems.splice(index, 1); 
+
     }
   },
   created:function(){

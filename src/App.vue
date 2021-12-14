@@ -3,7 +3,7 @@
     <TodoHeader></TodoHeader>
     <TodoInput v-on:addTodoItem="addOneItem"
     ></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem"></TodoList>
+    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
     <TodoFooter></TodoFooter>
 
   </div>
@@ -33,7 +33,13 @@ export default {
       localStorage.removeItem(todoItem.item);//todoItem은 콘솔로 찍으면 객체값으로 들어옴.
       this.todoItems.splice(index, 1); 
 
-    }
+    },
+    toggleOneItem:function(todoItem, index){
+      //todoItem.complated = !todoItem.complated;
+      this.todoItems[index].complated = !this.todoItems[index].complated;
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    },
   },
   created:function(){
     if(localStorage.length > 0){

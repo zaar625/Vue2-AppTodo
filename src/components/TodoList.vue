@@ -22,9 +22,7 @@ export default {
     },
     toggleComplate:function(todoItem,index){
       console.log(todoItem,index)
-      todoItem.complated = !todoItem.complated
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem))
+      this.$emit('toggleItem', todoItem, index);
     }
   },
 }

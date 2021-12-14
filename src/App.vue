@@ -16,38 +16,38 @@ import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 
 export default {
-  data: function(){
+  data(){
     return{
       todoItems:[]
     }
   },
   methods:{
-    addOneItem:function(todoItem){
-      var obj = {complated: false, item:todoItem}
+    addOneItem(todoItem){
+      const obj = {complated: false, item:todoItem}
         console.log(todoItem);
         //저장하는 로직
         localStorage.setItem(todoItem, JSON.stringify(obj));
         this.todoItems.push(obj)
     },
-    removeOneItem:function(todoItem, index){
+    removeOneItem(todoItem, index){
       localStorage.removeItem(todoItem.item);//todoItem은 콘솔로 찍으면 객체값으로 들어옴.
       this.todoItems.splice(index, 1); 
 
     },
-    toggleOneItem:function(todoItem, index){
+    toggleOneItem(todoItem, index){
       //todoItem.complated = !todoItem.complated;
       this.todoItems[index].complated = !this.todoItems[index].complated;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems:function(){
+    clearAllItems(){
         localStorage.clear();
         this.todoItems = [];
     }
   },
-  created:function(){
+  created(){
     if(localStorage.length > 0){
-      for(var i = 0; i < localStorage.length; i ++){
+      for(let i = 0; i < localStorage.length; i ++){
         if(localStorage.key(i) !== "loglevel:webpack-dev-server"){
           // localStorage.getItem(localStorage.key(i));
           // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))))

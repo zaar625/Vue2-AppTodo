@@ -1,10 +1,10 @@
 <template>
   <div id = "app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodoItem="addOneItem"
+    <TodoInput
     ></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
-    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
+    <TodoList v-bind:propsdata="todoItems"></TodoList>
+    <TodoFooter></TodoFooter>
 
   </div>
 </template>
@@ -22,41 +22,21 @@ export default {
     }
   },
   methods:{
-    addOneItem(todoItem){
-      const obj = {complated: false, item:todoItem}
-        console.log(todoItem);
-        //저장하는 로직
-        localStorage.setItem(todoItem, JSON.stringify(obj));
-        this.todoItems.push(obj)
-    },
-    removeOneItem(todoItem, index){
-      localStorage.removeItem(todoItem.item);//todoItem은 콘솔로 찍으면 객체값으로 들어옴.
-      this.todoItems.splice(index, 1); 
-
-    },
-    toggleOneItem(todoItem, index){
-      //todoItem.complated = !todoItem.complated;
-      this.todoItems[index].complated = !this.todoItems[index].complated;
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-    },
-    clearAllItems(){
-        localStorage.clear();
-        this.todoItems = [];
-    }
+    // removeOneItem(todoItem, index){
+    //   localStorage.removeItem(todoItem.item);//todoItem은 콘솔로 찍으면 객체값으로 들어옴.
+    //   this.todoItems.splice(index, 1); 
+    // },
+    // toggleOneItem(todoItem, index){
+    //   //todoItem.complated = !todoItem.complated;
+    //   this.todoItems[index].complated = !this.todoItems[index].complated;
+    //   localStorage.removeItem(todoItem.item);
+    //   localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    // },
+    // clearAllItems(){
+    //     localStorage.clear();
+    //     this.todoItems = [];
+    // }
   },
-  // created(){
-  //   if(localStorage.length > 0){
-  //     for(let i = 0; i < localStorage.length; i ++){
-  //       if(localStorage.key(i) !== "loglevel:webpack-dev-server"){
-  //         // localStorage.getItem(localStorage.key(i));
-  //         // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))))
-  //         this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-  //         // this.todoItems.push(localStorage.key(i))
-  //       }
-  //     }
-  //   }
-  // },
     components:{
         'TodoHeader' : TodoHeader,
         'TodoInput' : TodoInput,

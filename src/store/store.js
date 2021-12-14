@@ -35,8 +35,9 @@ export const store = new Vuex.Store({
                 state.todoItems.push(obj)
         },
         removeOneItem(state,payload){
-            localStorage.removeItem(payload.item);//todoItem은 콘솔로 찍으면 객체값으로 들어옴.
-            state.todoItems.splice(payload.index, 1);
+            console.log(payload.item)
+            localStorage.removeItem(payload.todoItem.item);//todoItem은 콘솔로 찍으면 객체값으로 들어옴.
+            state.todoItems.splice(payload.todoItem.index, 1);
         },
         toggleOneItem(state, todoItem, index){
             console.log(state, todoItem, index)

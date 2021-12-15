@@ -27,7 +27,7 @@ export const store = new Vuex.Store({
         todoItems:storage.fetch()
     },
     getters:{
-        storedTodoItem(state){
+        storedTodoItems(state){
             return state.todoItems
         }
     },
@@ -44,12 +44,12 @@ export const store = new Vuex.Store({
             localStorage.removeItem(payload.todoItem.item);//todoItem은 콘솔로 찍으면 객체값으로 들어옴.
             state.todoItems.splice(payload.todoItem.index, 1);
         },
-        toggleOneItem(state, todoItem, index){
-            console.log(state, todoItem, index)
-            todoItem.complated = !todoItem.complated;
-            state.todoItems[index].complated = !state.todoItems[index].complated;
-            localStorage.removeItem(todoItem.item);
-            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+        toggleOneItem(state, payload){
+            console.log(state, payload)
+            // payload.todoItem.complated = !payload.todoItem.complated;
+            state.todoItems[payload.index].complated = !state.todoItems[payload.index].complated;
+            localStorage.removeItem(payload.todoItem.item);
+            localStorage.setItem(payload.todoItem.item, JSON.stringify(payload.todoItem));
         },
         clearAllItems(state){
             localStorage.clear();

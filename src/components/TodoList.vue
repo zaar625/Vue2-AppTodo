@@ -1,10 +1,10 @@
 <template>
   <div>
     <transition-group name="list" tag="ul">
-        <li v-for="(todoItem , index) in this.storedTodoItem" v-bind:key="todoItem.item" class="shadow">
-          <i class="far fa-check-square checkBtn" v-bind:class="{checkBtnCompleted:todoItem.complated}" v-on:click="toggleComplate(todoItem, index)"></i>
+        <li v-for="(todoItem , index) in this.storedTodoItems" v-bind:key="todoItem.item" class="shadow">
+          <i class="far fa-check-square checkBtn" v-bind:class="{checkBtnCompleted:todoItem.complated}" v-on:click="toggleComplate({todoItem, index})"></i>
           <span v-bind:class="{textCompleted:todoItem.complated}">{{ todoItem.item }}</span>
-          <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+          <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
             <i class="far fa-trash-alt"></i>
           </span>
         </li>
@@ -13,29 +13,33 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 
 export default {
   methods:{
-    removeTodo(todoItem, index){
-      // const obj ={
-      //   todoItem,//todoItem : todoItem
-      //   index
-      // } ▽
-      this.$store.commit('removeOneItem',{todoItem, index});
-      // this.$emit('removeItem', todoItem, index)
-      console.log(todoItem, index)
-    },
-    toggleComplate(todoItem,index){
-      this.$store.commit('toggleOneItem',todoItem, index);
-      console.log(todoItem,index)
-      //this.$emit('toggleItem', todoItem, index);
-    }
+    ...mapMutations({
+      removeTodo: 'removeOneItem',
+      toggleComplate: 'toggleOneItem'
+    }),
+    // removeTodo(todoItem, index){
+    //   // const obj ={
+    //   //   todoItem,//todoItem : todoItem
+    //   //   index
+    //   // } ▽
+    //   this.$store.commit('removeOneItem',{todoItem, index});
+    //   // this.$emit('removeItem', todoItem, index)
+    //   console.log(todoItem, index)
+    // },
+    // toggleComplate(todoItem,index){
+    //   this.$store.commit('toggleOneItem',todoItem, index);
+    //   console.log(todoItem,index)
+    //   //this.$emit('toggleItem', todoItem, index);
+    // }
   },
   computed:{
    
-   ...mapGetters(['storedTodoItem'])
+   ...mapGetters(['storedTodoItems'])
   }
 }
 </script>
